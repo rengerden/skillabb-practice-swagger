@@ -1,0 +1,424 @@
+swagger: '2.0'
+info:
+  description: Creación, actualización, lectura y eliminación de materias.
+  version: 1.0.0
+  title: CRUD-SUBJECTS
+basePath: /v1.1/skillabb/practice/subject
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /create:
+    post:
+      tags:
+        - create-subject
+      operationId: create-subject
+      summary: API que permite la creación de materias.
+      description: API que permite la creación de materias.
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición
+        - name: CreateSubjectRequest
+          in: body
+          required: true
+          description: Datos para crear una materia. 
+          schema:
+            $ref: '#/definitions/CreateSubjectRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Codigo</td><td>Detalles</td></tr><tr><td>fatal</td><td>RequestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /update:
+    put:
+      tags:
+        - update-subject
+      summary: API que permite actualizar una materia. 
+      description: API que permite actualizar  una materia.
+      operationId: update-subject
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: UpdateSubjectRequest
+          in: body
+          required: true
+          description: Datos de entrada para actualizar una materia.
+          schema:
+            $ref: '#/definitions/UpdateSubjectRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Codigo</td><td>Detalles</td></tr><tr><td>fatal</td><td>RequestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /:
+    post:
+      tags:
+        - read-subject
+      summary: API que permite consultar una materia. 
+      description: API que permite consultar una materia. 
+      operationId: read-subject
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: ReadSubjectRequest
+          in: body
+          required: true
+          description: Datos de entrada para consultar una materia. 
+          schema:
+            $ref: '#/definitions/ReadSubjectRequest'
+      responses:
+        '200':
+          description: Operación exitosa.
+          schema:
+            $ref: '#/definitions/ReadSubjectResponse'
+        '400':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Codigo</td><td>Detalles</td></tr><tr><td>fatal</td><td>RequestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+          
+  /delete:
+    delete:
+      tags:
+        - delete-subject
+      summary: API que permite eliminar una materia. 
+      description: API que permite eliminar una materia.
+      operationId: delete-subject
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: DeleteSubjectRequest
+          in: body
+          required: true
+          description: Datos de entrada para eliminar una materia. 
+          schema:
+            $ref: '#/definitions/DeleteSubjectRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Codigo</td><td>Detalles</td></tr><tr><td>fatal</td><td>RequestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  
+definitions:
+  CreateSubjectRequest:
+    title: CreateSubjectRequest
+    type: object
+    properties:
+      name:
+        description: Nombre de la materia. 
+        type: string
+        example: "Matemáticas"
+      status:
+        description: Estatus de la materia. 
+        type: number
+        example: 1
+      abbreviation:
+        description: Abreviación de la materia. 
+        type: string
+        example: 'Mat'
+      hours:
+        description: Horas.
+        type: number
+        example: 5
+      schedule:
+        description: Horario
+        type: string
+        example: "L-V"
+      profileType:
+        description: Tipo de perfil.
+        type: number
+        example: 1
+      teacherId:
+        description: Identificador del profesor.
+        type: number
+        example: 556
+      userId:
+        description: Identificador del usuario.
+        type: number
+        example: 317
+    required:
+      - name
+      - abbreviation
+      - hours
+      - profileType
+      - teacherId
+      - userId
+      
+  UpdateSubjectRequest:
+    title: UpdateSubjectRequest
+    type: object
+    properties:
+      name:
+        description: Nombre de la materia.
+        type: string
+        example: 'Matemáticas'
+      status:
+        description: Estatus de la materia.
+        type: number
+        example: 1
+      abbreviation:
+        description: Abreviación de la materia.
+        type: string
+        example: 'Mat'
+      hours:
+        description: Horas.
+        type: number
+        example: 5
+      schedule:
+        description: Horario.
+        type: string
+        example: 'L-V'
+      profileType:
+        description: Tipo de perfil.
+        type: number
+        example: 1
+      teacherId:
+        description: Identificador del profesor.
+        type: number
+        example: 556
+    required:
+      - name
+      - abbreviation
+      - hours
+      - profileType
+      - teacherId
+
+  ReadSubjectRequest:
+    title: ReadSubjectRequest
+    type: object
+    properties:
+      subjectId:
+        description: Identificador de la materia.
+        type: number
+        example: 7
+    required:
+      - subjectId  
+  
+  ReadSubjectResponse:
+    title: ReadSubjectResponse
+    type: object
+    properties:
+      name:
+        description: Nombre de la materia.
+        type: string
+        example: 'Matemáticas'
+      status:
+        description: Estatus de la materia.
+        type: number
+        example: 1
+      abbreviation:
+        description: Abreviación de la materia.
+        type: string
+        example: 'Mat'
+      hours:
+        description: Horas.
+        type: number
+        example: 5
+      schedule:
+        description: Horario.
+        type: string
+        example: 'L-V'
+      profileType:
+        description: Tipo de perfil.
+        type: number
+        example: 1
+      teacherId:
+        description: Identificador del profesor.
+        type: number
+        example: 556
+      createdBy:
+        description: Creado por.
+        type: number
+        example: 9876
+      createdAt:
+        description: Creado en.
+        type: string
+      lastModifyBy:
+        description: Última modificación por.
+        type: number
+        example: 44830
+      lastModifyAt:
+        description: Última modificación en.
+        type: string
+    required:
+      - name
+      - abbreviation
+      - hours
+      - profileType
+      - teacherId
+      - createdBy
+      - createdAt
+      
+  DeleteSubjectRequest:
+    title: DeleteSubjectRequest
+    type: object
+    properties:
+      subjectId:
+        description: Identificador de la materia.
+        type: number
+        example: 7
+    required:
+      - subjectId
+  
+  ErrorResponse:
+    properties:
+      type:
+        type: string
+        description: 'Invalido - La petición no cumple con las especificaciones, no fue procesada y se rechazó.'
+        enum:
+          - error
+          - warn
+          - invalid
+          - fatal
+      code:
+        description: Código de error
+        type: string
+      details:
+        description: Detalles del error
+        type: string
+      location:
+        description: En dónde ocurrió el error
+        type: string
+      moreInfo:
+        description: Mas información del error
+        type: string
+      uuid:
+        description: UUID que se genera en cada petición
+        type: string
+      timestamp:
+        description: Tiempo y hora del error
+        type: string
+    required:
+      - type
+      - code
+      - uuid

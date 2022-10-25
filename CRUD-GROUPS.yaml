@@ -1,0 +1,399 @@
+swagger: '2.0'
+info:
+  title: CRUD-GROUPS
+  description: Creación, actualización, lectura y eliminación de grupo.
+  version: 1.0.0
+basePath: /v1.1/skillabb/practice/group
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /create:
+    post:
+      tags:
+        - create-group
+      summary: API que permite crear un grupo. 
+      description: API que permite crear un grupo. 
+      operationId: create-group
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: CreateGroupRequest
+          in: body
+          required: true
+          description: Datos para crear un grupo. 
+          schema:
+            $ref: '#/definitions/CreateGroupRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Codigo</td><td>Detalles</td></tr><tr><td>fatal</td><td>RequestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /update:
+    put:
+      tags:
+        - update-group
+      summary: API que permite actualizar un grupo. 
+      description: API que permite actualizar un grupo.
+      operationId: update-group
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: UpdateGroupRequest
+          in: body
+          required: true
+          description: Datos de entrada para actualizar un grupo.
+          schema:
+            $ref: '#/definitions/UpdateGroupRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Codigo</td><td>Detalles</td></tr><tr><td>fatal</td><td>RequestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /:
+    post:
+      tags:
+        - read-group
+      summary: API que permite consultar un grupo. 
+      description: API que permite consultar un grupo. 
+      operationId: read-group
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: ReadGroupRequest
+          in: body
+          required: true
+          description: Datos de entrada para consultar un grupo. 
+          schema:
+            $ref: '#/definitions/ReadGroupRequest'
+      responses:
+        '200':
+          description: Operación exitosa.
+          schema:
+            $ref: '#/definitions/ReadGroupResponse'
+        '400':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Codigo</td><td>Detalles</td></tr><tr><td>fatal</td><td>RequestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /delete:
+    delete:
+      tags:
+        - delete-group
+      summary: API que permite eliminar un grupo. 
+      description: API que permite eliminar un grupo.
+      operationId: delete-group
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: DeleteGroupRequest
+          in: body
+          required: true
+          description: Datos de entrada para eliminar un grupo. 
+          schema:
+            $ref: '#/definitions/DeleteGroupRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Codigo</td><td>Detalles</td></tr><tr><td>fatal</td><td>RequestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+definitions:
+  CreateGroupRequest:
+    title: CreateGroupRequest
+    type: object
+    properties:
+      name: 
+        type: string
+        description: Nombre del grupo. 
+        example: "Grupo1"
+      status:
+        type: number
+        description: Estatus del grupo.
+        example: 1
+      abbreviation:
+        type: string
+        description: Abreviación. 
+        example: "Gpo1"
+      status2: 
+        type: number
+        description: Estatus del grupo.
+        example: 2
+      code: 
+        type: string
+        description: Código del grupo.
+        example: "001"
+      generation: 
+        type: string
+        description: Generación del grupo. 
+        example: "2022"
+    required: 
+      - name
+      - abbreviation
+      - code
+      - generation
+  UpdateGroupRequest:
+    title: UpdateGroupRequest
+    type: object
+    properties: 
+      name: 
+        type: string
+        description: Nombre del grupo. 
+        example: "Grupo1"
+      status:
+        type: number
+        description: Estatus del grupo.
+        example: 1
+      abbreviation:
+        type: string
+        description: Abreviación. 
+        example: "Gpo1"
+      status2: 
+        type: number
+        description: Estatus del grupo.
+        example: 2
+      code: 
+        type: string
+        description: Código del grupo.
+        example: "001"
+      generation: 
+        type: string
+        description: Generación del grupo. 
+        example: "2022" 
+    required: 
+      - name
+      - abbreviation 
+      - code
+      - generation
+      
+  ReadGroupRequest:
+    title: ReadGroupRequest
+    type: object
+    properties: 
+      groupId:
+        type: number
+        description: Identificador de grupo. 
+        example: 0463
+    required:
+      - groupId
+  ReadGroupResponse: 
+    title: ReadGroupResponse
+    type: object
+    properties: 
+      name: 
+        type: string
+        description: Nombre del grupo. 
+        example: "Grupo1"
+      status:
+        type: number
+        description: Estatus del grupo.
+        example: 1
+      abbreviation:
+        type: string
+        description: Abreviación. 
+        example: "Gpo1"
+      status1: 
+        type: number
+        description: Estatus del grupo.
+        example: 1
+      code: 
+        type: string
+        description: Código de la materia.
+        example: "001"
+      generation: 
+        type: string
+        description: Generación del grupo. 
+        example: "2022"
+      createdBy:
+        type: string
+        description: Creador del grupo.
+        example: "Juan Perez"
+      createdAt:
+        type: string
+        description: Creado en.
+      lastModifyBy:
+        type: string
+        description: Última modificacion por.
+        example: "Julia Flores"
+      lastModifyAt: 
+        type: string
+        description: Última modificación en.
+    required: 
+      - name
+      - abbreviation
+      - createdBy
+      - createdAt
+      - code
+      - generation
+  DeleteGroupRequest:
+    title: DeleteGroupRequest
+    type: object
+    properties: 
+      groupId:
+        type: number
+        description: Identificador de grupo. 
+        example: 0463
+    required:
+      - groupId
+        
+  ErrorResponse:
+    properties:
+      type:
+        type: string
+        description: 'Inválido - La petición no cumple con las especificaciones, no fue procesada y se rechazó.'
+        enum:
+          - error
+          - warn
+          - invalid
+          - fatal
+      code:
+        description: Código de error
+        type: string
+      details:
+        description: Detalles del error
+        type: string
+      location:
+        description: En dónde ocurrió el error
+        type: string
+      moreInfo:
+        description: Mas información del error
+        type: string
+      uuid:
+        description: UUID que se genera en cada petición
+        type: string
+      timestamp:
+        description: Tiempo y hora del error
+        type: string
+    required:
+      - type
+      - code
+      - uuid

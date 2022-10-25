@@ -1,0 +1,391 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: CRUD-GRADES
+  description: Creación, actualización, lectura y eliminación de grados.
+basePath: /v1.1/skillabb/practice/grade
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /create:
+    post:
+      tags:
+        - create-grades
+      summary: API que permite crear grados.
+      description: API que permite crear grados. 
+      operationId: create-grades
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: CreateGradesRequest
+          in: body
+          required: true
+          description: Datos de entrada para crear grados.
+          schema:
+            $ref: '#/definitions/CreateGradesRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>requestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /update:
+    put:
+      tags:
+        - update-grades
+      summary: API que permite actualizar grados.
+      description: API que permite actualizar grados.
+      operationId: update-grades
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: UpdateGradesRequest
+          in: body
+          required: true
+          description: 'Datos de entrada para actualizar grados'
+          schema:
+            $ref: '#/definitions/UpdateGradesRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description:  <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>requestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'      
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /:
+    post:
+      tags:
+        - read-grades
+      summary: API que permite consultar grados. 
+      description: API que permite consultar grados.
+      operationId: read-grades
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: ReadGradesRequest
+          in: body
+          required: true
+          description: 'Datos de entrada para actualizar grados'
+          schema:
+            $ref: '#/definitions/ReadGradesRequest'
+      responses:
+        '200':
+          description: Operación exitosa.
+          schema:
+            $ref: '#/definitions/ReadGradesResponse'
+        '400':
+          description: <table><table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description:  <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>requestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'      
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /delete:
+    delete:
+      tags:
+        - delete-grades
+      summary: API que permite eliminar grados.
+      description: API que permite eliminar grados.
+      operationId: delete-grades
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición.
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición.
+        - name: DeleteGradesRequest
+          in: body
+          required: true
+          description: Datos de entrada para eliminar grados
+          schema:
+            $ref: '#/definitions/DeleteGradesRequest'
+      responses:
+        '204':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>successful</td><td>No content</td><td>No content</td></tr></table>
+        '400':
+          description: <table><table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros faltantes/Parámetros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La operación solicitada no ha sido configurada para acceder a este recurso</td><td>Canal/País/Negocio provisto en la petición no es soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description:  <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El recurso solicitado no ha sido encontrado</td><td>Recurso no existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>requestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'      
+        '500':
+          description: <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La petición falló debido a un error interno del servidor/Servidor no disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+            
+definitions:
+  CreateGradesRequest:
+    title: CreateGradesRequest
+    type: object
+    properties:
+      subjectId:
+        description: Identificador de la materia.
+        type: number
+        example: 1
+      gradeId:
+        description: Identificador del grado.
+        type: number
+        example: 1
+      value: 
+        type: string 
+        description: Valor.
+      gradeType: 
+        type: string 
+        description: Tipo de grado.
+      status: 
+        type: number
+        description: Estatus del grado.
+        example: 1
+      validated: 
+        type: string 
+        description: Validado.
+    required:
+      - subjectId
+      - gradeId
+      - value
+      - gradeType
+      
+  UpdateGradesRequest:
+    title: UpdateGradesRequest
+    type: object
+    properties:
+      subjectId:
+        description: Identificador de la materia.
+        type: number
+        example: 1
+      gradeId:
+        description: Identificador del grado.
+        type: number
+        example: 1
+      value: 
+        type: string 
+        description: Valor.
+      gradeType: 
+        type: string 
+        description: Tipo de grado.
+      status: 
+        type: string 
+        description: Estatus del grado.
+      validated: 
+        type: string 
+        description: Validado.
+    required:
+      - subjectId
+      - gradeId
+      - value
+      - gradeType
+      
+  ReadGradesRequest:
+    title: ReadGradesRequest
+    type: object
+    properties:
+      gradeId:
+        description: Identificador del grado.
+        type: number
+        example: 1
+    required:
+      - gradeId
+        
+  ReadGradesResponse:
+    title: ReadGradesResponse
+    type: object
+    properties:
+      gradeId:
+        description: Identificador del grado.
+        type: number
+        example: 1
+      subjectId:
+        description: Identificador de la materia.
+        type: number
+        example: 1
+      gradeId1:
+        description: Identificador del grado.
+        type: number
+        example: 1
+      value: 
+        type: string 
+        description: Valor.
+      gradeType: 
+        type: string 
+        description: Tipo de grado.
+      status: 
+        type: string 
+        description: Estatus del grado.
+      validated: 
+        type: string 
+        description: Validado.
+      createdBy:
+        description: Creado por.
+        type: string
+      createdAt:
+        description: Creado en.
+        type: string
+      lastModifyBy: 
+        type: string 
+        description: Última modificación por.
+      lastModifyAt: 
+        type: string 
+        description: Última modificación en.
+    required: 
+      - gradeId
+      - subjectId
+      - gradeId1
+      - value
+      - createdBy
+      - createdAt
+     
+  DeleteGradesRequest:
+    title: DeleteGradesRequest
+    type: object
+    properties:
+      gradeId:
+        description: Identificador del grado.
+        type: number
+        example: 1
+    required:
+      - gradeId
+ 
+  ErrorResponse:
+    properties:
+      type:
+        type: string
+        description: 'Inválido - La petición no cumple con las especificaciones, no fue procesada y se rechazó.'
+        enum:
+          - error
+          - warn
+          - invalid
+          - fatal
+      code:
+        description: Código de error
+        type: string
+      details:
+        description: Detalles del error
+        type: string
+      location:
+        description: En dónde ocurrió el error
+        type: string
+      moreInfo:
+        description: Mas información del error
+        type: string
+      uuid:
+        description: UUID que se genera en cada petición
+        type: string
+      timestamp:
+        description: Tiempo y hora del error
+        type: string
+    required:
+      - type
+      - code
+      - uuid
